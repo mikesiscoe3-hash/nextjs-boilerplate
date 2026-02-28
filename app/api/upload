@@ -1,0 +1,41 @@
+import { NextResponse } from 'next/server'
+import { supabaseAdmin, SINGLE_USER_ID } from '@/lib/supabaseAdmin'
+
+export const runtime = 'nodejs'
+
+export async function POST(req: Request) {
+  const form = await req.formData()
+
+  const projectId = form.get('projectId') as string
+  const file = form.get('file') as File
+
+  if (!projectId) return NextResponse.json({ error: 'projectId required' }, { status: 400 })
+  if (!file) return NextResponse.json({ error: 'file required' }, { status: 400 })
+
+  const storagePath = `${SINGLE_USER_ID}/${projectId}/${file.name}`
+
+  const { error: uploadError } = await supabaseAdmin.storage
+    .from('project-files')
+    .upload(storagePath, file, { upsert: true })
+
+  if (uploadError) return NextResponse.json({ error: uploadError.message }, { status: 400 })
+
+  const { data, error: insertError } = await supabaseAdmin
+    .from('project_files')
+    .insert([
+      {
+        user_id: SINGLE_USER_ID,
+        project_id: projectId,
+        storage_path: storagePath,
+        filename: file.name,
+        mime_type: file.type,
+        size_bytes: file.size,
+        status: 'uploaded',
+      },
+    ])
+    .select()
+    .single()
+
+  if (insertError) return NextResponse.json({ error: insertError.message }, { status: 400 })
+  return NextResponse.json({ file: data })
+}
