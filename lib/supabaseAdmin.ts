@@ -28,19 +28,21 @@ export function getSupabaseAnon() {
 }
 
 /**
- * Admin client (optional).
- * Uses SUPABASE_SERVICE_ROLE_KEY if it exists, otherwise returns null.
- * (This is so missing service key doesn’t crash the build.)
+ * Admin client (required for server-side admin tasks).
+ * MUST be used only on the server.
  */
 export function getSupabaseAdmin() {
-  if (adminClient) return adminClient
+  if (adminClient) return adminClient;
 
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
-  if (!serviceKey) return null
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!serviceKey) {
+    throw new Error("SUPABASE_SERVICE_ROLE_KEY environment variable is required");
+  }
 
-  adminClient = createClient(getSupabaseUrl(), serviceKey)
-  return adminClient
+  adminClient = createClient(getSupabaseUrl(), serviceKey, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
+
+  return adminClient;
 }
-export const supabaseAdmin = getSupabaseAdmin()
-
 export const SINGLE_USER_ID = process.env.SINGLE_USER_ID
