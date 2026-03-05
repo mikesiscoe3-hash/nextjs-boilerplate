@@ -41,3 +41,6 @@ export function getSupabaseAdmin() {
   adminClient = createClient(getSupabaseUrl(), serviceKey)
   return adminClient
 }
+export const supabaseAdmin = getSupabaseAdmin()
+
+export const SINGLE_USER_ID = process.env.SINGLE_USER_ID
