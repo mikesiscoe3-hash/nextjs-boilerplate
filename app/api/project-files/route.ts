@@ -1,13 +1,16 @@
- import { NextResponse } from 'next/server'
-import { NextResponse } from 'next/server'
-import { supabaseAdmin, SINGLE_USER_ID } from '../../../lib/supabaseAdmin'
+import { NextResponse } from "next/server";
+import { getSupabaseAdmin } from "@/lib/supabaseAdmin"; // adjust path
 
- export async function GET() {
-const { data, error } = await supabaseAdmin
-  const supabaseAdmin = getSupabaseAdmin()
-  // keep your existing query below; just make sure it starts from supabaseAdmin
-  // example:
-  // const { data, error } = await supabaseAdmin.from('projects').select('*')
- 
-   // ...rest of your handler
- }
+export async function GET() {
+  const supabaseAdmin = getSupabaseAdmin();
+
+  const { data, error } = await supabaseAdmin
+    .from("your_table")          // <-- pick your table / query
+    .select("*");
+
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+
+  return NextResponse.json(data);
+}
