@@ -3,7 +3,9 @@ import CoolBackground from "@/app/components/CoolBackground";
 import GlassCard from "@/app/components/GlassCard";
 
 const figmaUrl = "https://pose-think-33651514.figma.site";
-
+const value = process.env.NEXT_PUBLIC_UI_VALUE ?? 'Help'
+// then in your return JSX:
+<h1>{value}</h1>
 export default function Page() {
   return <div>{process.env.NEXT_PUBLIC_UI_VALUE ?? 'Help'}</div>
     <CoolBackground>
