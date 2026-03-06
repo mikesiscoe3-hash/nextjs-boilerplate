@@ -7,7 +7,13 @@ const value = process.env.NEXT_PUBLIC_UI_VALUE ?? 'Help'
 // then in your return JSX:
 <h1>{value}</h1>
 export default function Page() {
-  return <div>{process.env.NEXT_PUBLIC_UI_VALUE ?? 'Help'}</div>
+  const value = process.env.NEXT_PUBLIC_UI_VALUE
+  return (
+    <main>
+      <h1>{value}</h1>
+    </main>
+  )
+}
     <CoolBackground>
       <main className="container mx-auto px-4 py-16">
         <GlassCard className="max-w-6xl mx-auto">
