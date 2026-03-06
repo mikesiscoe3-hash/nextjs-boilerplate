@@ -4,8 +4,9 @@ import GlassCard from "@/app/components/GlassCard";
 
 const figmaUrl = "https://pose-think-33651514.figma.site";
 
-export default function PreviewPage() {
-  return (
+export default function Page() {
+  return <div>{process.env.NEXT_PUBLIC_UI_VALUE ?? 'Help'}</div>
+}
     <CoolBackground>
       <main className="container mx-auto px-4 py-16">
         <GlassCard className="max-w-6xl mx-auto">
