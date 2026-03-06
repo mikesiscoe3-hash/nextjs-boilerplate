@@ -31,12 +31,22 @@ export function getSupabaseAnon() {
  * Admin client (required for server-side admin tasks).
  * MUST be used only on the server.
  */
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
+
+let adminClient: SupabaseClient | null = null;
+
+function getSupabaseUrl() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  if (!supabaseUrl) throw new Error("NEXT_PUBLIC_SUPABASE_URL is required");
+  return supabaseUrl;
+}
+
 export function getSupabaseAdmin() {
   if (adminClient) return adminClient;
 
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!serviceKey) {
-    throw new Error("SUPABASE_SERVICE_ROLE_KEY environment variable is required");
+    throw new Error("SUPABASE_SERVICE_ROLE_KEY is required");
   }
 
   adminClient = createClient(getSupabaseUrl(), serviceKey, {
