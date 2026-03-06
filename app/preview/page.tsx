@@ -7,6 +7,29 @@ const value = process.env.NEXT_PUBLIC_UI_VALUE ?? 'Help'
 // then in your return JSX:
 <h1>{value}</h1>
 export default function Page() {
+  const helpLabel = process.env.NEXT_PUBLIC_HELP_LABEL
+
+  return (
+    <main>
+      <div className="flex gap-3">
+
+        <button className="border px-4 py-2 rounded-lg">
+          Launch ChatGPT
+        </button>
+
+        <button className="bg-yellow-500 px-4 py-2 rounded-lg">
+          Start New Project
+        </button>
+
+        <button className="border px-4 py-2 rounded-lg">
+          {helpLabel}
+        </button>
+
+      </div>
+    </main>
+  )
+}
+export default function Page() {
   const value = process.env.NEXT_PUBLIC_UI_VALUE
   return (
     <main>
