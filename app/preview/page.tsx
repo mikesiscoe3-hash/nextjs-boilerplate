@@ -2,83 +2,44 @@ import Link from "next/link";
 import CoolBackground from "@/app/components/CoolBackground";
 import GlassCard from "@/app/components/GlassCard";
 
-const figmaUrl = "https://pose-think-33651514.figma.site";
-const value = process.env.NEXT_PUBLIC_UI_VALUE ?? 'Help'
-// then in your return JSX:
-<h1>{value}</h1>
-export default function Page() {
-  const helpLabel = process.env.NEXT_PUBLIC_HELP_LABEL
+export default function HomePage() {
+  const helpLabel = process.env.NEXT_PUBLIC_UI_VALUE ?? "Help";
 
   return (
-    <main>
-      <div className="flex gap-3">
-
-        <button className="border px-4 py-2 rounded-lg">
-          Launch ChatGPT
-        </button>
-
-        <button className="bg-yellow-500 px-4 py-2 rounded-lg">
-          Start New Project
-        </button>
-
-        <button className="border px-4 py-2 rounded-lg">
-          {helpLabel}
-        </button>
-
-      </div>
-    </main>
-  )
-}
-export default function Page() {
-  const value = process.env.NEXT_PUBLIC_UI_VALUE
-  return (
-    <main>
-      <h1>{value}</h1>
-    </main>
-  )
-}
     <CoolBackground>
       <main className="container mx-auto px-4 py-16">
         <GlassCard className="max-w-6xl mx-auto">
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
             <div>
-              <h1 className="text-3xl md:text-4xl font-semibold mb-2">Preview</h1>
+              <h1 className="text-3xl md:text-4xl font-semibold mb-2">
+                Creative Mastery Tracker
+              </h1>
               <p className="text-white/70">
-                Open the Figma preview to review the latest design.
+                Start building the dashboard and test your UI flow.
               </p>
             </div>
 
             <div className="flex gap-3">
               <Link
-                href="/"
+                href="/preview"
                 className="cool-btn inline-flex items-center justify-center border border-white/15 bg-white/10 px-5 py-3 text-sm font-medium hover:bg-white/15"
               >
-                <span>Back to home</span>
+                <span>Preview</span>
               </Link>
 
-              <Link
-                href={figmaUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="cool-btn inline-flex items-center justify-center bg-white px-5 py-3 text-sm font-semibold text-slate-900 hover:bg-white/90"
-              >
-                <span>Open Figma</span>
-              </Link>
+              <button className="cool-btn inline-flex items-center justify-center border border-white/15 bg-white/10 px-5 py-3 text-sm font-medium hover:bg-white/15">
+                Launch ChatGPT
+              </button>
+
+              <button className="cool-btn inline-flex items-center justify-center bg-white px-5 py-3 text-sm font-semibold text-slate-900 hover:bg-white/90">
+                Start New Project
+              </button>
+
+              <button className="cool-btn inline-flex items-center justify-center border border-white/15 bg-white/10 px-5 py-3 text-sm font-medium hover:bg-white/15">
+                {helpLabel}
+              </button>
             </div>
           </div>
-
-          <div className="mt-8 rounded-2xl overflow-hidden border border-white/10 bg-slate-900/40">
-            <iframe
-              src={figmaUrl}
-              className="h-[70vh] w-full"
-              title="Figma preview"
-              allowFullScreen
-            />
-          </div>
-
-          <p className="mt-3 text-xs text-white/55">
-            If the embed is blocked, use the “Open Figma” button.
-          </p>
         </GlassCard>
       </main>
     </CoolBackground>
